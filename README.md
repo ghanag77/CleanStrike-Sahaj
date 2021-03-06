@@ -32,6 +32,7 @@ Defunct coin
 None
 ---- 1
 
+
 Player 2: Choose an outcome from the list below
 
 Strike
