@@ -20,6 +20,7 @@ A game is won by the first player to have won at least 5 points, in total, and, 
 When the coins are exhausted on the board, if the highest scorer is not leading by, at least, 3 points or does not have a minimum of 5 points, the game is considered a draw
 Write a program that takes in the outcome of each turn as input and outputs the result of the game as and when applicable along with necessary statistics that supports the result. Please find sample input and output below:
 
+
 Sample Input:
 Player 1: Choose an outcome from the list below
 
@@ -30,6 +31,7 @@ Striker strike
 Defunct coin
 None
 ---- 1
+
 Player 2: Choose an outcome from the list below
 
 Strike
