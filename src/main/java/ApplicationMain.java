@@ -1,24 +1,28 @@
-import model.CarromBoard;
+import model.CleanStrikeGame;
 import model.Player;
 import model.PlayerMoves;
 
+import java.io.InputStream;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class ApplicationMain {
     public static void main(String[] args) {
+        play(System.in);
+    }
 
-        Player player1 = new Player("player1");
-        Player player2 = new Player("player2");
+    public static void play(InputStream inputStream) {
+        Player player1 = new Player("Player1");
+        Player player2 = new Player("Player2");
         Player winner;
-        CarromBoard carromBoard = new CarromBoard(player1, player2, true);
-        PlayerMoves playerMoves = new PlayerMoves(player1,player2,carromBoard);
+        CleanStrikeGame cleanStrikeGame = new CleanStrikeGame(player1, player2, true);
+        PlayerMoves playerMoves = new PlayerMoves(player1,player2, cleanStrikeGame);
         int caseType = -1;
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(inputStream);
 
         do {
             System.out
-                    .println(carromBoard.getStriker().getName() + " Choose an outcome from the list below");
+                    .println(cleanStrikeGame.getStriker().getName() + " Choose an outcome from the list below");
             System.out.println("1. STRIKE");
             System.out.println("2. Multistrike");
             System.out.println("3. Red strike");
@@ -28,14 +32,13 @@ public class ApplicationMain {
             System.out.println("7. Exit");
             caseType = scanner.nextInt();
             playerMoves.play(caseType);
-            winner = carromBoard.getWinner();
+            winner = cleanStrikeGame.getWinner();
             if (Objects.nonNull(winner)) {
-                caseType = 7;
+                System.out.println(cleanStrikeGame.printFinalResult());
+                break;
             }
-            System.out.println(playerMoves.printScore());
-        } while (!(carromBoard.isGameOver() || caseType == 7));
-
-        System.out.println(playerMoves.printScore());
+            System.out.println(cleanStrikeGame.printScore());
+        } while (!(cleanStrikeGame.isGameOver() || caseType == 7));
     }
 }
 

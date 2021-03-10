@@ -1,7 +1,6 @@
 package model;
 
 import lombok.Getter;
-import lombok.NonNull;
 
 public class PlayerMoves {
     @Getter
@@ -10,17 +9,12 @@ public class PlayerMoves {
     private Player player2;
     private Player winner;
 
-    private CarromBoard carromBoard;
+    private CleanStrikeGame cleanStrikeGame;
 
-    public PlayerMoves(Player player1, Player player2, CarromBoard carromBoard) {
+    public PlayerMoves(Player player1, Player player2, CleanStrikeGame cleanStrikeGame) {
         this.player1 = player1;
         this.player2 = player2;
-        this.carromBoard = carromBoard;
-    }
-
-    public String printScore() {
-        return (player1.getName() + " : " + player1.getScore()
-                + " " + player2.getName() + " : " + player2.getScore());
+        this.cleanStrikeGame = cleanStrikeGame;
     }
 
     public void play(int caseType) {
@@ -50,47 +44,47 @@ public class PlayerMoves {
 
         switch (strikeType) {
             case NO_STRIKE:
-                carromBoard.addStrike(StrikeType.NO_STRIKE);
-                carromBoard.changePlayer();
+                cleanStrikeGame.addStrike(StrikeType.NO_STRIKE);
+                cleanStrikeGame.changePlayer();
                 break;
             case STRIKER_STRIKE:
-                carromBoard.addStrike(StrikeType.STRIKER_STRIKE);
-                carromBoard.changePlayer();
+                cleanStrikeGame.addStrike(StrikeType.STRIKER_STRIKE);
+                cleanStrikeGame.changePlayer();
                 break;
             case RED_STRIKE:
-                carromBoard.addStrike(StrikeType.RED_STRIKE);
-                carromBoard.redCoinsStriked();
+                cleanStrikeGame.addStrike(StrikeType.RED_STRIKE);
+                cleanStrikeGame.redCoinsStriked();
                 break;
             case STRIKE:
-                if (!carromBoard.isLastRedCoin()) {
-                    carromBoard.coinsStriked();
+                if (!cleanStrikeGame.isLastRedCoin()) {
+                    cleanStrikeGame.coinsStriked();
                 }
-                carromBoard.addStrike(StrikeType.STRIKE);
-                carromBoard.changePlayer();
+                cleanStrikeGame.addStrike(StrikeType.STRIKE);
+                cleanStrikeGame.changePlayer();
                 break;
             case MULTI_STRIKE:
-                carromBoard.addStrike(StrikeType.MULTI_STRIKE);
-                carromBoard.changePlayer();
+                cleanStrikeGame.addStrike(StrikeType.MULTI_STRIKE);
+                cleanStrikeGame.changePlayer();
                 break;
             case DEFUNCT_COIN:
-                carromBoard.addStrike(StrikeType.DEFUNCT_COIN);
-                carromBoard.coinsStriked();
-                carromBoard.changePlayer();
+                cleanStrikeGame.addStrike(StrikeType.DEFUNCT_COIN);
+                cleanStrikeGame.coinsStriked();
+                cleanStrikeGame.changePlayer();
                 break;
         }
-        if (carromBoard.isConsecutiveNoStrike()) {
-            carromBoard.addStrike(StrikeType.CONSECUTIVE_3_NO_STRIKE);
+        if (cleanStrikeGame.isConsecutiveNoStrike()) {
+            cleanStrikeGame.addStrike(StrikeType.CONSECUTIVE_3_NO_STRIKE);
         }
-        if (carromBoard.isFoul()) {
-            carromBoard.addStrike(StrikeType.FOUL);
+        if (cleanStrikeGame.isFoul()) {
+            cleanStrikeGame.addStrike(StrikeType.FOUL);
         }
     }
 
     public Player getCurrentPlayer() {
-        return carromBoard.getStriker();
+        return cleanStrikeGame.getStriker();
     }
 
     public int getTotalCoins() {
-        return carromBoard.getRedCoin() + carromBoard.getCoins();
+        return cleanStrikeGame.getRedCoin() + cleanStrikeGame.getCoins();
     }
 }
